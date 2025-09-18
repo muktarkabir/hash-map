@@ -2,10 +2,10 @@ class HashMap {
   constructor() {}
   _capacity = 16;
   _loadFactor = 0.75;
+  _buckets = [];
 
   hash(key) {
     let hashCode = 0;
-
     const primeNumber = 31;
     for (let i = 0; i < key.length; i++) {
       hashCode = (primeNumber * hashCode + key.charCodeAt(i)) % 16;
