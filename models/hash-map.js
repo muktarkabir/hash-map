@@ -12,17 +12,20 @@ class HashMap {
     for (let i = 0; i < key.length; i++) {
       hashCode = (primeNumber * hashCode + key.charCodeAt(i)) % 16;
     }
-    
+
     return hashCode;
   }
   set(key, value) {
     let hashedKey = this.hash(key);
     if (this._buckets[hashedKey] == null) {
-      console.log("Creating new Linkedlist in empty bucket"); 
+      console.log("Creating new Linkedlist in empty bucket");
       this._buckets[hashedKey] = new LinkedList();
       this._buckets[hashedKey].append({ key, value });
-      console.log("Inserted into bucket at index:", this._buckets.indexOf(this._buckets[hashedKey]));
-      console.log(this._buckets[hashedKey]); 
+      console.log(
+        "Inserted into bucket at index:",
+        this._buckets.indexOf(this._buckets[hashedKey])
+      );
+      console.log(this._buckets[hashedKey]);
       return;
     }
     console.log("Bucket is already a linked list");
@@ -37,10 +40,10 @@ class HashMap {
     }
     if (temp == null) {
       console.log("Collision detected, appending value");
-      this._buckets[hashedKey].append({key,value});
-    console.log(this._buckets[hashedKey].tail());
+      this._buckets[hashedKey].append({ key, value });
+      console.log(this._buckets[hashedKey].tail());
     }
-    
+
     console.log(this._buckets[hashedKey]);
   }
   get(key) {
@@ -69,7 +72,6 @@ class HashMap {
     }
 
     return false;
-
   }
   remove(key) {
     let hashedKey = this.hash(key);
@@ -87,9 +89,27 @@ class HashMap {
       index++;
     }
     return false;
-
   }
-  length() {}
+  length() {
+    let count = 0;
+    let noneEmptyBuckets = [];
+    this._buckets.forEach((bucket) => {
+      if (bucket != null) {
+        noneEmptyBuckets.push(bucket);
+      }
+    });
+    noneEmptyBuckets.forEach((bucket, index) => {
+      console.log(`bucket ${index}`);
+
+      let temp = bucket.head;
+      while (temp) {
+        count++;
+        temp = temp.nextNode;
+      }
+    });
+
+    return count;
+  }
   clear() {}
   keys() {}
   values() {}
@@ -100,8 +120,9 @@ let map = new HashMap();
 map.set("fish", "shark");
 map.set("goat", 354);
 map.set("fish", "SHARHHHH");
-map.set("Rama",453);
-map.set("Sita","Collision")
-console.log(map.get("Sista"))
+map.set("Rama", 453);
+map.set("Sita", "Collision");
+console.log(map.get("Sista"));
 console.log(map.has("Sita"));
 console.log(map.remove("Sita"));
+console.log(map.length());
