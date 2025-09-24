@@ -45,6 +45,7 @@ export class HashMap {
     }
 
     console.log(this._buckets[hashedKey]);
+    if (this.filledBuckets().length > (this._capacity * this._loadFactor)) this.growBuckets();
   }
   get(key) {
     let hashedKey = this.hash(key);
@@ -151,5 +152,11 @@ export class HashMap {
     return storedPairs;
   }
 
-  growBuckets() {}
+  growBuckets() {
+    console.log("Time to grow buckets!");
+    for (let i = 0; i < this._capacity; i++) {
+      this._buckets.push(null); 
+    }
+    this._capacity *= 2;
+  }
 }
