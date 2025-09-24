@@ -112,7 +112,24 @@ class HashMap {
   }
   clear = () => (this._buckets = Array(this._capacity).fill(null));
 
-  keys() {}
+  keys() {
+    let storedKeys = [];
+    let noneEmptyBuckets = [];
+    this._buckets.forEach((bucket) => {
+      if (bucket != null) {
+        noneEmptyBuckets.push(bucket);
+      }
+    });
+
+    noneEmptyBuckets.forEach((bucket) => {
+      let temp = bucket.head;
+      while (temp) {
+        storedKeys.push(temp.value.key);
+        temp = temp.nextNode;
+      }
+    });
+    return storedKeys;
+  }
   values() {}
   entries() {}
 }
@@ -127,4 +144,6 @@ console.log(map.get("Sista"));
 console.log(map.has("Sita"));
 console.log(map.remove("Sita"));
 console.log(map.length());
+console.log(map.keys());
+
 map.clear();
