@@ -43,7 +43,19 @@ class HashMap {
     
     console.log(this._buckets[hashedKey]);
   }
-  get(key) {}
+  get(key) {
+    let hashedKey = this.hash(key);
+    let bucket = this._buckets[hashedKey];
+    if (!bucket) return null;
+    let temp = bucket.head;
+    while (temp) {
+      if (temp.value.key == key) {
+        return temp.value.value;
+      }
+      temp = temp.nextNode;
+    }
+    return null;
+  }
   has(key) {}
   remove(key) {}
   length() {}
@@ -59,3 +71,4 @@ map.set("goat", 354);
 map.set("fish", "SHARHHHH");
 map.set("Rama",453);
 map.set("Sita","Collision")
+console.log(map.get("Sista"))
