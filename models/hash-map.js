@@ -1,5 +1,5 @@
 import LinkedList from "./linked-list.js";
-class HashMap {
+export class HashMap {
   constructor() {
     this._capacity = 16;
     this._loadFactor = 0.75;
@@ -167,21 +167,3 @@ class HashMap {
     return storedPairs;
   }
 }
-let map = new HashMap();
-// map.set("fish", "tilapia");
-map.set("fish", "shark");
-map.set("goat", 354);
-map.set("fish", "SHARHHHH");
-map.set("Rama", 453);
-map.set("Sita", "Collision");
-console.log(map.get("Sista"));
-console.log(map.has("Sita"));
-console.log(map.remove("Sita"));
-console.log(map.length());
-console.log(map.keys());
-console.log(map.values());
-console.log(map.entries());
-
-
-
-map.clear();
