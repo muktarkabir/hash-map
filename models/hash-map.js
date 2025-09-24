@@ -71,7 +71,24 @@ class HashMap {
     return false;
 
   }
-  remove(key) {}
+  remove(key) {
+    let hashedKey = this.hash(key);
+    let bucket = this._buckets[hashedKey];
+    if (!bucket || !this.has(key)) return false;
+    let index = 0;
+    let temp = bucket.head;
+    while (temp) {
+      if (temp.value.key == key) {
+        console.log(`Removing ${temp.value.key}:${temp.value.value}`);
+        bucket.removeAt(index);
+        return true;
+      }
+      temp = temp.nextNode;
+      index++;
+    }
+    return false;
+
+  }
   length() {}
   clear() {}
   keys() {}
@@ -87,3 +104,4 @@ map.set("Rama",453);
 map.set("Sita","Collision")
 console.log(map.get("Sista"))
 console.log(map.has("Sita"));
+console.log(map.remove("Sita"));
