@@ -92,15 +92,8 @@ export class HashMap {
   }
   length() {
     let count = 0;
-    let noneEmptyBuckets = [];
-    this._buckets.forEach((bucket) => {
-      if (bucket != null) {
-        noneEmptyBuckets.push(bucket);
-      }
-    });
-    noneEmptyBuckets.forEach((bucket, index) => {
+    this.filledBuckets().forEach((bucket, index) => {
       console.log(`bucket ${index}`);
-
       let temp = bucket.head;
       while (temp) {
         count++;
@@ -110,18 +103,23 @@ export class HashMap {
 
     return count;
   }
-  clear = () => (this._buckets = Array(this._capacity).fill(null));
-
-  keys() {
-    let storedKeys = [];
+  filledBuckets() {
     let noneEmptyBuckets = [];
     this._buckets.forEach((bucket) => {
       if (bucket != null) {
         noneEmptyBuckets.push(bucket);
       }
     });
+    return noneEmptyBuckets;
+  }
+  clear = () => {
+    this._capacity = 16;
+    this._buckets = Array(this._capacity).fill(null);
+  };
 
-    noneEmptyBuckets.forEach((bucket) => {
+  keys() {
+    let storedKeys = [];
+    this.filledBuckets().forEach((bucket) => {
       let temp = bucket.head;
       while (temp) {
         storedKeys.push(temp.value.key);
@@ -132,14 +130,7 @@ export class HashMap {
   }
   values() {
     let storedValues = [];
-    let noneEmptyBuckets = [];
-    this._buckets.forEach((bucket) => {
-      if (bucket != null) {
-        noneEmptyBuckets.push(bucket);
-      }
-    });
-
-    noneEmptyBuckets.forEach((bucket) => {
+    this.filledBuckets().forEach((bucket) => {
       let temp = bucket.head;
       while (temp) {
         storedValues.push(temp.value.value);
@@ -150,20 +141,15 @@ export class HashMap {
   }
   entries() {
     let storedPairs = [];
-    let noneEmptyBuckets = [];
-    this._buckets.forEach((bucket) => {
-      if (bucket != null) {
-        noneEmptyBuckets.push(bucket);
-      }
-    });
-
-    noneEmptyBuckets.forEach((bucket) => {
+    this.filledBuckets().forEach((bucket) => {
       let temp = bucket.head;
       while (temp) {
-        storedPairs.push([temp.value.key,temp.value.value]);
+        storedPairs.push([temp.value.key, temp.value.value]);
         temp = temp.nextNode;
       }
     });
     return storedPairs;
   }
+
+  growBuckets() {}
 }
