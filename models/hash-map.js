@@ -148,7 +148,24 @@ class HashMap {
     });
     return storedValues;
   }
-  entries() {}
+  entries() {
+    let storedPairs = [];
+    let noneEmptyBuckets = [];
+    this._buckets.forEach((bucket) => {
+      if (bucket != null) {
+        noneEmptyBuckets.push(bucket);
+      }
+    });
+
+    noneEmptyBuckets.forEach((bucket) => {
+      let temp = bucket.head;
+      while (temp) {
+        storedPairs.push([temp.value.key,temp.value.value]);
+        temp = temp.nextNode;
+      }
+    });
+    return storedPairs;
+  }
 }
 let map = new HashMap();
 // map.set("fish", "tilapia");
@@ -163,6 +180,8 @@ console.log(map.remove("Sita"));
 console.log(map.length());
 console.log(map.keys());
 console.log(map.values());
+console.log(map.entries());
+
 
 
 map.clear();
