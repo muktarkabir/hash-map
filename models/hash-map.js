@@ -110,7 +110,8 @@ class HashMap {
 
     return count;
   }
-  clear() {}
+  clear = () => (this._buckets = Array(this._capacity).fill(null));
+
   keys() {}
   values() {}
   entries() {}
@@ -126,3 +127,4 @@ console.log(map.get("Sista"));
 console.log(map.has("Sita"));
 console.log(map.remove("Sita"));
 console.log(map.length());
+map.clear();
