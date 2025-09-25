@@ -26,6 +26,9 @@ export class HashMap {
         this._buckets.indexOf(this._buckets[hashedKey])
       );
       console.log(this._buckets[hashedKey]);
+      if (this.filledBuckets().length > (this._capacity * this._loadFactor)) {
+        this.growBuckets();
+      }
       return;
     }
     console.log("Bucket is already a linked list");
@@ -45,9 +48,6 @@ export class HashMap {
     }
 
     console.log(this._buckets[hashedKey]);
-    if (this.filledBuckets().length > (this._capacity * this._loadFactor)) {
-      this.growBuckets();
-    }
   }
   get(key) {
     let hashedKey = this.hash(key);
@@ -156,16 +156,20 @@ export class HashMap {
 
   growBuckets() {
     console.log("Time to grow buckets!");
-    let newBucket = Array(this._capacity * 2).fill(null);
-    for (let i = 0; i < this._capacity; i++) {
-      this._buckets.push(null);
-    }
-    this._buckets.forEach((bucket)=>{
-      let head = bucket.head;
-      while (head) {
-        let hashedKey = head.value.key;
-      }
-    })
     this._capacity *= 2;
+    let newBucket = Array(this._capacity).fill(null);
+    this._buckets.forEach((bucket) => {
+      if (bucket != null) { 
+        let temp = bucket.head;
+        while (temp) {
+          let hashedKey = this.hash(temp.value.key);
+          if (newBucket[hashedKey] == null) newBucket[hashedKey] = new LinkedList();
+          newBucket[hashedKey].append(temp.value);
+          temp = temp.nextNode;
+        }
+      }
+    });
+    this._buckets = newBucket;
+    
   }
 }
