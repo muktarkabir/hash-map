@@ -18,6 +18,8 @@ test.set("moon", "silver");
 test.set("mkutar", 987);
 test.set("meerkat", "timon");
 test.set("anarchy", "fire");
-test.set('furniture',"table")
-console.log(test.entries());
+test.set("anarchy", "water");
+// test.set('furniture',"table");
+console.log(test.length());
+
 

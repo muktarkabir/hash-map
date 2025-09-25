@@ -91,16 +91,7 @@ export class HashMap {
     return false;
   }
   length() {
-    let count = 0;
-    this.filledBuckets().forEach((bucket) => {
-      let temp = bucket.head;
-      while (temp) {
-        count++;
-        temp = temp.nextNode;
-      }
-    });
-
-    return count;
+    return this.keys().length;
   }
   filledBuckets =()=> this._buckets.filter(bucket => bucket != null);
   
