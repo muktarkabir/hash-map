@@ -18,10 +18,10 @@ test.set("moon", "silver");
 test.set("mkutar", 987);
 test.set("meerkat", "timon");
 test.set("anarchy", "fire");
-// test.set("sexual", "intercourse");
-// test.set("whale", "fisis");
 test.set('furniture',"table")
 console.log(test.filledBuckets().length);
 console.log(test._capacity * test._loadFactor);
 console.log(test.filledBuckets().length > test._capacity * test._loadFactor);
 console.log(test._buckets.length);
+console.log(test.entries());
+

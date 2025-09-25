@@ -106,15 +106,8 @@ export class HashMap {
 
     return count;
   }
-  filledBuckets() {
-    let noneEmptyBuckets = [];
-    this._buckets.forEach((bucket) => {
-      if (bucket != null) {
-        noneEmptyBuckets.push(bucket);
-      }
-    });
-    return noneEmptyBuckets;
-  }
+  filledBuckets =()=> this._buckets.filter(bucket => bucket != null);
+  
   clear = () => {
     this._capacity = 16;
     this._buckets = Array(this._capacity).fill(null);
@@ -158,8 +151,7 @@ export class HashMap {
     console.log("Time to grow buckets!");
     this._capacity *= 2;
     let newBucket = Array(this._capacity).fill(null);
-    this._buckets.forEach((bucket) => {
-      if (bucket != null) { 
+    this.filledBuckets().forEach((bucket) => {
         let temp = bucket.head;
         while (temp) {
           let hashedKey = this.hash(temp.value.key);
@@ -167,7 +159,6 @@ export class HashMap {
           newBucket[hashedKey].append(temp.value);
           temp = temp.nextNode;
         }
-      }
     });
     this._buckets = newBucket;
     
