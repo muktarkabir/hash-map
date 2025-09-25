@@ -25,7 +25,6 @@ export class HashMap {
         "Inserted into bucket at index:",
         this._buckets.indexOf(this._buckets[hashedKey])
       );
-      console.log(this._buckets[hashedKey]);
       if (this.filledBuckets().length > (this._capacity * this._loadFactor)) {
         this.growBuckets();
       }
@@ -44,10 +43,8 @@ export class HashMap {
     if (temp == null) {
       console.log("Collision detected, appending value");
       this._buckets[hashedKey].append({ key, value });
-      console.log(this._buckets[hashedKey].tail());
     }
 
-    console.log(this._buckets[hashedKey]);
   }
   get(key) {
     let hashedKey = this.hash(key);
@@ -95,8 +92,7 @@ export class HashMap {
   }
   length() {
     let count = 0;
-    this.filledBuckets().forEach((bucket, index) => {
-      console.log(`bucket ${index}`);
+    this.filledBuckets().forEach((bucket) => {
       let temp = bucket.head;
       while (temp) {
         count++;
